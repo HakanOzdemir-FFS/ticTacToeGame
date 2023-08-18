@@ -16,6 +16,7 @@ oButton.addEventListener("click", () => {
   unchosenCharacter = "X";
   resetButton.style.display = "block";
   currentTurn.innerText = `No winners yet turn : ${chosenCharacter}`;
+  isUnchosenTurn = false;
   gameCells.forEach((cell) => {
     cell.style.pointerEvents = "auto";
   });
@@ -25,6 +26,7 @@ xButton.addEventListener("click", () => {
   buttonContainer.style.display = "none";
   chosenCharacter = "X";
   unchosenCharacter = "O";
+  isUnchosenTurn = false;
   resetButton.style.display = "block";
   currentTurn.innerText = `No winners yet turn : ${chosenCharacter}`;
   gameCells.forEach((cell) => {
@@ -34,10 +36,9 @@ xButton.addEventListener("click", () => {
 
 gameCells.forEach(function (cell, index) {
   cell.addEventListener("click", function (event) {
-    if (event.target.innerHTML !== '') {
+    if (event.target.innerHTML !== "") {
       return;
-    }
-    else if (chosenCharacter === undefined) {
+    } else if (chosenCharacter === undefined) {
       return;
     } else if (!isUnchosenTurn) {
       gameBoard[index] = chosenCharacter;
@@ -57,7 +58,8 @@ gameCells.forEach(function (cell, index) {
       gameCells.forEach((cell) => {
         cell.style.pointerEvents = "none";
       });
-    } else if (checkDraw()) {  // Kazanan yoksa beraberlik kontrolü yap
+    } else if (checkDraw()) {
+      // Kazanan yoksa beraberlik kontrolü yap
       currentTurn.innerText = "It's a draw!";
       gameCells.forEach((cell) => {
         cell.style.pointerEvents = "none";
@@ -101,7 +103,7 @@ resetButton.addEventListener("click", () => {
 });
 
 function checkDraw() {
-  for (let box of mapDivs) {
+  for (let box of gameCells) {
     if (box.innerHTML === "") {
       return false;
     }
